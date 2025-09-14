@@ -69,14 +69,14 @@ dependencies {
     // region AdNetworks
     // Make sure you visit https://docs.tapsell.ir/plus-sdk/flutter/add-adnetworks/ for full guide about AdNetworks
 
-    // Admob
-    implementation 'com.google.android.gms:play-services-ads:22.6.0'
-    // Applovin
-    implementation("com.applovin:applovin-sdk:12.4.0")
-    // Chartboost
-    implementation("com.chartboost:chartboost-sdk:8.2.1")
-    // Unity ads
-    implementation("com.unity3d.ads:unity-ads:4.9.2")
+    // // Admob
+    // implementation 'com.google.android.gms:play-services-ads:22.6.0'
+    // // Applovin
+    // implementation("com.applovin:applovin-sdk:12.4.0")
+    // // Chartboost
+    // implementation("com.chartboost:chartboost-sdk:8.2.1")
+    // // Unity ads
+    // implementation("com.unity3d.ads:unity-ads:4.9.2")
 
     // endregion
 }
