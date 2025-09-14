@@ -279,11 +279,11 @@ class TapsellPlus {
     if (onError != null) _errorCallbacks[responseId] = onError;
 
     if (responseId == _adMobNativeAdResponseId && admobFactoryId != null) {
-      showAdmobNativeAd(responseId, _adMobNativeAdNetworkZoneId, admobFactoryId,
-              onOpened: onOpened, onLoaded: onLoaded, onError: onError)
-          .then((admobNativeAd) =>
-              {onLoaded?.call(NativeAdPayload.adMobView(admobNativeAd))});
-      return true;
+      // showAdmobNativeAd(responseId, _adMobNativeAdNetworkZoneId, admobFactoryId,
+      //         onOpened: onOpened, onLoaded: onLoaded, onError: onError)
+      //     .then((admobNativeAd) =>
+      //         {onLoaded?.call(NativeAdPayload.adMobView(admobNativeAd))});
+      // return true;
     } else {
       return await _channel.invokeMethod(
           'TapsellPlus.showNativeAd', {'response_id': responseId});
