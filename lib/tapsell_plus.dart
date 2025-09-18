@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
+// import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 import 'NativeAdData.dart';
 import 'NativeAdPayload.dart';
@@ -39,8 +39,8 @@ class TapsellPlus {
     _channel.setMethodCallHandler(_handleMethodCall);
   }
 
-  static String _adMobNativeAdResponseId = "";
-  static String _adMobNativeAdNetworkZoneId = "";
+  // static String _adMobNativeAdResponseId = "";
+  // static String _adMobNativeAdNetworkZoneId = "";
 
   ///
   /// Initializes the SDK
@@ -60,12 +60,12 @@ class TapsellPlus {
   /// Sets the user's consent about advertising policy
   /// resolves with true and rejects with false if any issue had occurred
   ///
-  Future<bool> setGDPRConsent(bool consent) async {
-    if (!Platform.isAndroid) return false;
-    return await _channel
-            .invokeMethod('TapsellPlus.setGDPRConsent', {'consent': consent}) ??
-        false;
-  }
+  // Future<bool> setGDPRConsent(bool consent) async {
+  //   if (!Platform.isAndroid) return false;
+  //   return await _channel
+  //           .invokeMethod('TapsellPlus.setGDPRConsent', {'consent': consent}) ??
+  //       false;
+  // }
 
   ///
   /// Sets debug mode
@@ -268,27 +268,27 @@ class TapsellPlus {
   ///
   /// **When the ad is ready to be shown** [onOpened] is called with the information needed in it's param
   ///
-  Future<bool> showNativeAd(String responseId,
-      {String? admobFactoryId,
-      Function(NativeAdPayload)? onOpened,
-      Function(NativeAdPayload)? onLoaded,
-      Function(Map<String, String>)? onError}) async {
-    if (!Platform.isAndroid) return false;
+  // Future<bool> showNativeAd(String responseId,
+  //     {String? admobFactoryId,
+  //     Function(NativeAdPayload)? onOpened,
+  //     Function(NativeAdPayload)? onLoaded,
+  //     Function(Map<String, String>)? onError}) async {
+  //   if (!Platform.isAndroid) return false;
 
-    if (onOpened != null) _nativeCallbacks[responseId] = onOpened;
-    if (onError != null) _errorCallbacks[responseId] = onError;
+  //   if (onOpened != null) _nativeCallbacks[responseId] = onOpened;
+  //   if (onError != null) _errorCallbacks[responseId] = onError;
 
-    if (responseId == _adMobNativeAdResponseId && admobFactoryId != null) {
-      // showAdmobNativeAd(responseId, _adMobNativeAdNetworkZoneId, admobFactoryId,
-      //         onOpened: onOpened, onLoaded: onLoaded, onError: onError)
-      //     .then((admobNativeAd) =>
-      //         {onLoaded?.call(NativeAdPayload.adMobView(admobNativeAd))});
-      // return true;
-    } else {
-      return await _channel.invokeMethod(
-          'TapsellPlus.showNativeAd', {'response_id': responseId});
-    }
-  }
+  //   if (responseId == _adMobNativeAdResponseId && admobFactoryId != null) {
+  //     // showAdmobNativeAd(responseId, _adMobNativeAdNetworkZoneId, admobFactoryId,
+  //     //         onOpened: onOpened, onLoaded: onLoaded, onError: onError)
+  //     //     .then((admobNativeAd) =>
+  //     //         {onLoaded?.call(NativeAdPayload.adMobView(admobNativeAd))});
+  //     // return true;
+  //   } else {
+  //     return await _channel.invokeMethod(
+  //         'TapsellPlus.showNativeAd', {'response_id': responseId});
+  //   }
+  // }
 
   ///
   /// Shows the ad using the [unitId] and [factoryId].
@@ -297,41 +297,41 @@ class TapsellPlus {
   ///
   /// **When the ad is loaded** [NativeAd] instance is returned
   ///
-  Future<NativeAd> showAdmobNativeAd(
-      String responseId, String unitId, String factoryId,
-      {Function(NativeAdPayload)? onOpened,
-      Function(NativeAdPayload)? onLoaded,
-      Function(Map<String, String>)? onError}) async {
-    sendAdMobNativeAdShowStart(responseId, unitId);
-    sendAdMobNativeAdWin(responseId, unitId);
-    final NativeAd nativeAd = NativeAd(
-      adUnitId: unitId,
-      factoryId: factoryId,
-      request: AdRequest(),
-      listener: NativeAdListener(
-        onAdLoaded: (Ad ad) => {
-          print('Native Admob ad loaded'),
-          sendAdMobNativeAdSuccessReport(responseId, unitId),
-          onLoaded?.call(NativeAdPayload.adMob(ad)),
-        },
-        onAdOpened: (Ad ad) => {
-          print('Native Admob ad opened'),
-          onOpened?.call(NativeAdPayload.adMob(ad)),
-        },
-        onAdClicked: (Ad ad) => {
-          print('Native Admob ad clicked'),
-        },
-        onAdFailedToLoad: (Ad ad, LoadAdError error) {
-          print('Ad failed to load: $error');
-          ad.dispose();
-          onError?.call({'error': error.toString(), 'response_id': responseId});
-          sendAdMobNativeAdFailedReport(responseId, unitId, error);
-        },
-      ),
-    );
-    await nativeAd.load();
-    return nativeAd;
-  }
+  // Future<NativeAd> showAdmobNativeAd(
+  //     String responseId, String unitId, String factoryId,
+  //     {Function(NativeAdPayload)? onOpened,
+  //     Function(NativeAdPayload)? onLoaded,
+  //     Function(Map<String, String>)? onError}) async {
+  //   sendAdMobNativeAdShowStart(responseId, unitId);
+  //   sendAdMobNativeAdWin(responseId, unitId);
+  //   final NativeAd nativeAd = NativeAd(
+  //     adUnitId: unitId,
+  //     factoryId: factoryId,
+  //     request: AdRequest(),
+  //     listener: NativeAdListener(
+  //       onAdLoaded: (Ad ad) => {
+  //         print('Native Admob ad loaded'),
+  //         sendAdMobNativeAdSuccessReport(responseId, unitId),
+  //         onLoaded?.call(NativeAdPayload.adMob(ad)),
+  //       },
+  //       onAdOpened: (Ad ad) => {
+  //         print('Native Admob ad opened'),
+  //         onOpened?.call(NativeAdPayload.adMob(ad)),
+  //       },
+  //       onAdClicked: (Ad ad) => {
+  //         print('Native Admob ad clicked'),
+  //       },
+  //       onAdFailedToLoad: (Ad ad, LoadAdError error) {
+  //         print('Ad failed to load: $error');
+  //         ad.dispose();
+  //         onError?.call({'error': error.toString(), 'response_id': responseId});
+  //         sendAdMobNativeAdFailedReport(responseId, unitId, error);
+  //       },
+  //     ),
+  //   );
+  //   await nativeAd.load();
+  //   return nativeAd;
+  // }
 
   ///
   /// When you show the ad and user presses the nativeAd's call to action button,
@@ -339,12 +339,12 @@ class TapsellPlus {
   ///
   /// Ad click is recognized using [responseId] you should store
   ///
-  Future<bool> nativeBannerAdClicked(String responseId) async {
-    if (!Platform.isAndroid) return false;
+  // Future<bool> nativeBannerAdClicked(String responseId) async {
+  //   if (!Platform.isAndroid) return false;
 
-    return await _channel.invokeMethod(
-        'TapsellPlus.nativeBannerAdClicked', {'response_id': responseId});
-  }
+  //   return await _channel.invokeMethod(
+  //       'TapsellPlus.nativeBannerAdClicked', {'response_id': responseId});
+  // }
 
   Future<int> _handleMethodCall(MethodCall call) async {
     if (!Platform.isAndroid) return -1;
@@ -436,52 +436,52 @@ class TapsellPlus {
     return map;
   }
 
-  Future<bool> onAdMobNativeAdRequest(
-      String zoneId, String responseId, String adNetworkZoneId) async {
-    if (!Platform.isAndroid) return false;
-    _adMobNativeAdResponseId = responseId;
-    _adMobNativeAdNetworkZoneId = adNetworkZoneId;
-    return true;
-  }
+  // Future<bool> onAdMobNativeAdRequest(
+  //     String zoneId, String responseId, String adNetworkZoneId) async {
+  //   if (!Platform.isAndroid) return false;
+  //   _adMobNativeAdResponseId = responseId;
+  //   _adMobNativeAdNetworkZoneId = adNetworkZoneId;
+  //   return true;
+  // }
 
-  Future<bool> sendAdMobNativeAdSuccessReport(
-      String responseId, String adNetworkZoneId) async {
-    if (!Platform.isAndroid) return false;
-    return await _channel.invokeMethod(
-        'TapsellPlus.sendAdMobNativeAdSuccessReport',
-        {'response_id': responseId, 'adnetwork_zone_id': adNetworkZoneId});
-  }
+  // Future<bool> sendAdMobNativeAdSuccessReport(
+  //     String responseId, String adNetworkZoneId) async {
+  //   if (!Platform.isAndroid) return false;
+  //   return await _channel.invokeMethod(
+  //       'TapsellPlus.sendAdMobNativeAdSuccessReport',
+  //       {'response_id': responseId, 'adnetwork_zone_id': adNetworkZoneId});
+  // }
 
-  Future<bool> sendAdMobNativeAdFailedReport(
-      String adNetworkZoneId, String zoneId, LoadAdError error) async {
-    if (!Platform.isAndroid) return false;
-    return await _channel
-        .invokeMethod("TapsellPlus.sendAdMobNativeAdFailedReport", {
-      'adnetwork_zone_id': adNetworkZoneId,
-      'zone_id': zoneId,
-      'ad_network_show_error': {
-        'adNetworkZoneId': adNetworkZoneId,
-        'adNetworkEnum': 'admob',
-        'errorMessage': error.message,
-        'errorCode': error.code,
-      }
-    });
-  }
+  // Future<bool> sendAdMobNativeAdFailedReport(
+  //     String adNetworkZoneId, String zoneId, LoadAdError error) async {
+  //   if (!Platform.isAndroid) return false;
+  //   return await _channel
+  //       .invokeMethod("TapsellPlus.sendAdMobNativeAdFailedReport", {
+  //     'adnetwork_zone_id': adNetworkZoneId,
+  //     'zone_id': zoneId,
+  //     'ad_network_show_error': {
+  //       'adNetworkZoneId': adNetworkZoneId,
+  //       'adNetworkEnum': 'admob',
+  //       'errorMessage': error.message,
+  //       'errorCode': error.code,
+  //     }
+  //   });
+  // }
 
-  Future<bool> sendAdMobNativeAdWin(
-      String responseId, String adNetworkZoneId) async {
-    if (!Platform.isAndroid) return false;
-    return await _channel.invokeMethod("TapsellPlus.sendAdMobNativeAdWin",
-        {'response_id': responseId, 'adnetwork_zone_id': adNetworkZoneId});
-  }
+  // Future<bool> sendAdMobNativeAdWin(
+  //     String responseId, String adNetworkZoneId) async {
+  //   if (!Platform.isAndroid) return false;
+  //   return await _channel.invokeMethod("TapsellPlus.sendAdMobNativeAdWin",
+  //       {'response_id': responseId, 'adnetwork_zone_id': adNetworkZoneId});
+  // }
 
-  Future<bool> sendAdMobNativeAdShowStart(
-      String responseId, String adNetworkZoneId) async {
-    if (!Platform.isAndroid) return false;
-    return await _channel.invokeMethod("TapsellPlus.sendAdMobNativeAdShowStart",
-        {'response_id': responseId, 'adnetwork_zone_id': adNetworkZoneId});
-  }
-}
+//   Future<bool> sendAdMobNativeAdShowStart(
+//       String responseId, String adNetworkZoneId) async {
+//     if (!Platform.isAndroid) return false;
+//     return await _channel.invokeMethod("TapsellPlus.sendAdMobNativeAdShowStart",
+//         {'response_id': responseId, 'adnetwork_zone_id': adNetworkZoneId});
+//   }
+// }
 
 enum TapsellPlusBannerType {
   BANNER_320x50,
