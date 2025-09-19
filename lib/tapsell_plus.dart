@@ -22,6 +22,12 @@ class TapsellPlus {
   Map<String, void Function(Map<String, String>)> _rewardCallbacks = {};
   Map<String, void Function(Map<String, String>)> _errorCallbacks = {};
 
+    // Used for banner ads
+  Map<String, void Function(Map<String, String>)> _requestCallbacks = {};
+
+  // Native specific
+  Map<String, void Function(NativeAdPayload)> _nativeCallbacks = {};
+  
   ///
   /// Static modifier for tapsell plus
   /// Instead of defining everything as a static.
