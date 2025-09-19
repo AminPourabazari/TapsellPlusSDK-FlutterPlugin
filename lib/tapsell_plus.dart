@@ -318,6 +318,7 @@ class TapsellPlus {
     }
     return map;
   }
+}
 
 enum TapsellPlusBannerType {
   BANNER_320x50,
